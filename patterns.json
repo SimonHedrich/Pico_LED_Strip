@@ -1,0 +1,20 @@
+{
+    "led_count": 100, 
+    "ticks": 100,
+    "patterns": {
+        "red_wave": {
+            "name": "Red Wave",
+            "duration": 10,
+            "red": "((sin(((i + t) * 2 * pi) / 100) + 1) / 2) * 255",
+            "blue": "0",
+            "green": "0"
+        },
+        "rainbow_old": {
+            "name": "Rainbow",
+            "duration": 1,
+            "red":   "255 / 2 * (sin(2 *((i + t) * 2 * pi) / 100) + 1)",
+            "blue":  "255 / 2 * (sin(2 *(0.66 * pi) + (((i + t) * 2 * pi) / 100)) + 1)",
+            "green": "255 / 2 * (sin(2 *(1.33 * pi) + (((i + t) * 2 * pi) / 100)) + 1)"
+        }
+    }
+}
