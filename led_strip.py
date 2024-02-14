@@ -1,4 +1,5 @@
 import _thread
+from pattern import Pattern
 from machine import Pin
 from neopixel import NeoPixel
 
@@ -24,4 +25,4 @@ class LEDStrip:
             for led_position in range(self.led_count):
                 red, green, blue = self.pattern.calculate_color(led_position, time_step)
                 self.leds[led_position] = (red, green, blue)
-            self.leds.write()
+        self.leds.write()

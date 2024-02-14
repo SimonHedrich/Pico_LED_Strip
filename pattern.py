@@ -1,25 +1,46 @@
 from math import sin, cos, pi
 
+class ColorParameters:
+    __slots__ = [
+        'frequency', 
+        'phase_shift', 
+        'amplitude', 
+        'offset', 
+        'time_multiplier', 
+        'spatial_multiplier']
+
+    def __init__(
+            self, 
+            frequency=1, 
+            phase_shift=0, 
+            amplitude=255, 
+            offset=0, 
+            time_multiplier=1, 
+            spatial_multiplier=1,
+            **_,
+        ):
+        self.frequency = frequency
+        self.phase_shift = phase_shift
+        self.amplitude = amplitude
+        self.offset = offset
+        self.time_multiplier = time_multiplier
+        self.spatial_multiplier = spatial_multiplier
+
 class Pattern:
-    def __init__(self, name, code, duration, red_expr, green_expr, blue_expr):
-        self._name = name
+    def __init__(self, leds, ticks, code, definition):
+        self._leds = leds
+        self._max_ticks = ticks
         self._code = code
-        self._duration = duration
-        self._red_expr = red_expr
-        self._green_expr = green_expr
-        self._blue_expr = blue_expr
+        self._name = definition["name"]
+        self._duration = definition["duration"]
+        self._red = ColorParameters(**definition["red"])
+        self._green = ColorParameters(**definition["green"])
+        self._blue = ColorParameters(**definition["blue"])
+        self._colors = (self._red, self._green, self._blue)
     
     def calculate_color(self, led_position, tick_count):
-        expressions = {
-            'i': led_position, 
-            't': tick_count,
-            'sin': sin,
-            'cos': cos,
-            'pi': pi
-            }
-        color = (
-            int(eval(self._red_expr, {'__builtins__': None}, expressions)),
-            int(eval(self._green_expr, {'__builtins__': None}, expressions)),
-            int(eval(self._blue_expr, {'__builtins__': None}, expressions))
-            )
+        color = tuple(
+            int((sin(led_position + tick_count) + 1) / 2 * color.amplitude + color.offset)
+            for color in self._colors)
         return color
+
