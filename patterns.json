@@ -1,10 +1,10 @@
 {
     "led_count": 100, 
     "ticks": 100,
+    "tick_duration_ms": 10,
     "patterns": {
         "red_wave": {
             "name": "Red Wave",
-            "duration": 10,
             "red": {
                 "amplitude": 255,
                 "offset": 0
@@ -20,7 +20,6 @@
         },
         "rainbow_old": {
             "name": "Rainbow",
-            "duration": 1,
             "red": {
                 "amplitude": 255,
                 "offset": 0
